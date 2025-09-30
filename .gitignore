@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+
+# LaTeX auxiliary files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.bbl
+*.blg
+
+# Large Data, output, and archives
+*.zip
+*.npz
+*.pdf
+*.png
+
+# Specific folders for generated data/cache
+data/cache/
+sims/out/
+sims/out_sens/

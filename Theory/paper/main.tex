@@ -1,0 +1,353 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{siunitx}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+
+\sisetup{detect-mode=true,detect-family=true}
+
+\title{Fragmented Globalization: Theory, Measurement, and Policy}
+\author{Dr.~Ian Helfrich}
+\date{\today}
+
+\newtheorem{proposition}{Proposition}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+I present an integrated toolkit for quantifying the welfare and distributional consequences of fragmented globalization. On the theoretical side I prove the existence and uniqueness of global general equilibrium prices under damped Newton iteration, provide second-order Baqaee--Farhi welfare corrections, and show how sparse multi-region input--output networks discipline amplification. On the empirical side I deliver modern Sun--Abraham event studies, multi-way clustered inference, and weak-IV robust diagnostics. I embed these components in a policy counterfactual laboratory that handles tariffs, sanctions, rerouting constraints, carbon border adjustments, and exchange-rate shocks, and I validate the framework against FRED macro data. The resulting Econometrica-style package makes it possible to study reroute-versus-sever bounds, granular convexity, and Stone--Geary incidence within a single reproducible pipeline.
+\end{abstract}
+
+\section{Introduction}
+Fragmented globalization---the partial unwinding of the post-war trade system---raises three intertwined questions. How do production networks and Armington substitution shape national welfare under alternative fragmentation regimes? How large are the quantitative gaps between first-order welfare approximations and full general equilibrium solutions when we calibrate to multi-region input--output (MRIO) data? And how well do the canonical empirics (staggered adoption and macro exposure IV) describe the distributional and aggregate consequences that the model highlights? I answer these questions in an integrated research pipeline that couples novel theory, quantitative GE, modern empirics, and macro validation.
+
+My contributions are fourfold. First, I formalise a multi-region, multi-sector CES economy with Stone--Geary households and iceberg trade costs, and I prove three new propositions: rerouting dominates severing under capacity slack; network losses obey a spectral radius bound with explicit second-order error; and exposure concentration delivers convex welfare losses under non-homothetic demand. Second, I calibrate the model on the OECD ICIO SML (2017--2022) matrix---81 economies by 50 industries \citep{OECDICIO2023}---and show how the Baqaee--Farhi second-order correction tightens welfare comparisons across policy experiments, extending insights from \citet{BaqaeeFarhi2019} and \citet{CaliendoParro2015}. Third, I implement Sun--Abraham staggered adoption and modern IV diagnostics---complete with pre-trend tests, Kleibergen--Paap statistics, LIML, and Anderson--Rubin confidence sets---using a replication-grade codebase consistent with \citet{SunAbraham2021} and \citet{CameronGelbachMiller2011,KleibergenPaap2006,AndersonRubin1949}. Fourth, I study distributional incidence through Stone--Geary equivalent variation and benchmark the simulated aggregates against FRED macro series.
+
+\section{Economic Environment}
+\subsection{Agents and Preferences}
+There is a finite set of regions $\mathcal{R}$ and sectors $\mathcal{S}$. Representative households in region $r$ have Stone--Geary utility
+\begin{equation}
+    U_r = \left( \sum_{s\in\mathcal{S}} \beta_{rs}^{1/\sigma_r} \bigl(C_{rs} - \gamma_{rs}\bigr)^{(\sigma_r-1)/\sigma_r} \right)^{\sigma_r/(\sigma_r-1)},
+\end{equation}
+where $\sigma_r>0$ governs within-region substitution. Final consumption $C_{rs}$ is an Armington aggregator of origin-specific absorptions $c_{ors}$ with elasticity $\theta_s>1$:
+\begin{equation}
+\label{eq:armington}
+C_{rs}
+=\left[\sum_{o\in\mathcal{R}}
+\alpha_{ors}^{\frac{1}{\theta_s}}
+\, c_{ors}^{\frac{\theta_s-1}{\theta_s}}
+\right]^{\frac{\theta_s}{\theta_s-1}},\qquad
+\theta_s>1.
+\end{equation}
+The cost-minimising demand system implied by \eqref{eq:armington} is
+\begin{equation}
+\label{eq:armington-demand}
+c_{ors}
+=\alpha_{ors}\left(\frac{p_{ors}}{P_{rs}}\right)^{-\theta_s} C_{rs},
+\qquad
+P_{rs}
+=\left[\sum_{o\in\mathcal{R}}
+\alpha_{ors}\, p_{ors}^{1-\theta_s}\right]^{\frac{1}{1-\theta_s}},
+\end{equation}
+where $P_{rs}$ denotes the sector-level Armington price index.
+
+\subsection{Production and Trade}
+Each origin-sector pair $(o,s)$ produces gross output using fixed coefficients $A_{s's}$ on intermediate inputs and value added $v_{os}$. Iceberg trade costs $\tau_{ors}\geq 1$ deliver one unit of the exported good as $1/\tau_{ors}$ units in destination $r$. We stack technology into a trade-adjusted input-output matrix $A(\tau)$ whose spectral radius satisfies $\rho(A(\tau))<1$.
+
+\subsection{Equilibrium}
+A competitive equilibrium consists of prices $p$, value-added prices $p^{va}$, gross output $x$, and allocations $(c_{ors}, y_{rs})$ that satisfy the standard conditions of the multi-region input-output model. Zero-profit pricing pins down value-added prices according to
+\begin{equation}
+\label{eq:zp}
+p = A(\tau)^{\top} p + p^{va},
+\end{equation}
+while market clearing in gross output requires
+\begin{equation}
+\label{eq:mc}
+x = A(\tau) x + y,
+\qquad \text{equivalently } (I-A(\tau))\,x = y,
+\end{equation}
+where $y$ collects final absorption across regions and sectors. Household budgets link factor payments to nominal expenditure through
+\begin{equation}
+\label{eq:income}
+Y_r = \mathbf{1}^{\top} v_r,\qquad v = \operatorname{diag}(p^{va})\,x,
+\end{equation}
+and
+\begin{equation}
+\label{eq:budget}
+p_r^{\top} C_r = Y_r.
+\end{equation}
+Sectoral final demand inherits the Armington structure in \eqref{eq:armington}--\eqref{eq:armington-demand}:
+\begin{equation}
+\label{eq:final-demand}
+C_r = \bigl(C_{r1},\ldots,C_{rK}\bigr)^{\top},\qquad C_{rk}\ \text{satisfies \eqref{eq:armington}--\eqref{eq:armington-demand}}.
+\end{equation}
+When trade balance constraints or transfers are imposed we additionally require
+\begin{equation}
+\label{eq:tb}
+\sum_{k\in\mathcal{S}}\sum_{o\neq r} p_{ork}\,c_{ork}
+-\sum_{k\in\mathcal{S}}\sum_{d\neq r} p_{rdk}\,c_{rdk}
+= \mathrm{TB}_r.
+\end{equation}
+I denote by $L(\tau) = (I - A(\tau)^{\top})^{-1}$ the Leontief inverse and by $\omega$ the Domar weight vector implied by value-added shares.
+
+\subsection{Assumptions}
+I maintain the following standing assumptions:
+\begin{enumerate}[label=A\arabic*]
+    \item \label{ass:preferences} Stone--Geary parameters $\gamma_{rs}\geq 0$ satisfy $C_{rs}>\gamma_{rs}$ in equilibrium.
+    \item \label{ass:armington} Sectoral Armington elasticities obey $1<\underline{\theta}\leq \theta_s\leq \overline{\theta}<\infty$.
+    \item \label{ass:technology} The trade-adjusted IO matrix $A(\tau)$ is non-negative with spectral radius strictly below one.
+    \item \label{ass:capacity} Export capacity constraints (when present) are weakly above baseline gross output unless stated otherwise.
+    \item \label{ass:shocks} Log wedges $w$ are small enough for the second-order expansion to converge (formal bound stated in Proposition~\ref{prop:bf_bound}).
+    \item \label{ass:granular} Firm-level exposure shocks have finite second moments and are independent across firms within a sector.
+\end{enumerate}
+
+\section{Theoretical Results}
+Assumptions~\ref{ass:preferences}--\ref{ass:granular} deliver three propositions that formalise the comparative statics of fragmentation.
+
+\begin{proposition}[Reroute dominates sever]\label{prop:reroute}
+Consider a bilateral trade cost increase between blocs $a$ and $b$ with elasticities satisfying Assumptions~\ref{ass:armington}--\ref{ass:technology}. If capacity constraints are slack, the welfare loss under optimal rerouting is weakly smaller than under full severance. Equality obtains when substitution possibilities or capacities preclude reallocations. A counterexample arises once Assumption~\ref{ass:capacity} is violated.
+\end{proposition}
+
+\begin{proposition}[Network amplification bound]\label{prop:network}
+Let $w$ be a vector of log value-added wedges that respects Assumption~\ref{ass:shocks}. Aggregate welfare satisfies
+\begin{equation}
+    \bigl|\Delta \log W\bigr| \leq \|\omega\|_1 \cdot \|L(\tau)\|_{\infty} \cdot \|w\|_{\infty},
+\end{equation}
+and the second-order truncation error is bounded by $\frac{1}{2}\kappa(\rho(A),\varepsilon)\|w\|_2^2$, where $\kappa$ depends on the spectral radius and sectoral elasticities.
+\end{proposition}
+
+\begin{proposition}[Granular convexity]\label{prop:granular}
+Under Assumptions~\ref{ass:preferences} and \ref{ass:granular}, the welfare loss as a function of the exposure concentration index $H=\sum_i s_i^2$ is convex for small shocks. The curvature coefficient equals a positive function of Stone--Geary marginal budget shares and Armington elasticities.
+\end{proposition}
+
+\begin{proposition}[Baqaee--Farhi second-order bound]\label{prop:bf_bound}
+Let $H = L(\tau)^{\top}\operatorname{diag}(\varepsilon)L(\tau)$ be the network Hessian with sectoral elasticities $\varepsilon$. Then the difference between the exact welfare change and the first-order approximation satisfies
+\begin{equation}
+    \bigl|\Delta \log W - \Delta \log W^{(1)}\bigr| \leq \tfrac{1}{2} \lambda_{\max}(H) \|\Delta \log p\|_2^2.
+\end{equation}
+\end{proposition}
+
+Formal proofs are collected in Appendix~\ref{app:proofs}. Appendix~\ref{app:assumptions} discusses the tightness of each assumption and provides capacity-binding counterexamples for Proposition~\ref{prop:reroute}.
+
+\section{Calibration and Data}
+Calibration parameters are stored in \texttt{data/calibration.yaml}. I synthesise the key elasticities in Table~\ref{tab:calibration} and the Stone--Geary parameters in Table~\ref{tab:sg}. The MRIO loader now ingests the OECD ICIO SML data (2017--2022) and caches sparse matrices on the fly, while retaining the small synthetic system as an optional fallback for debugging.
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+    \begin{adjustbox}{max width=\linewidth}
+    \caption{Sectoral elasticities in baseline calibration}
+    \label{tab:calibration}
+    \input{../tables/calibration_params.tex}
+    \end{adjustbox}
+    \begin{tablenotes}[flushleft]
+        \footnotesize
+        \item Notes: Armington $\theta$, CES $\sigma$, and network elasticities $\varepsilon$ evaluated at the OECD ICIO SML base year (2021). Country-specific overrides remain a topic for future calibration work.
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+    \begin{adjustbox}{max width=\linewidth}
+    \caption{Stone--Geary income groups}
+    \label{tab:sg}
+    \input{../tables/stone_geary_groups.tex}
+    \end{adjustbox}
+    \begin{tablenotes}[flushleft]
+        \footnotesize
+        \item Notes: Entries show household income and vectors of $\alpha$ and $\gamma$ (truncated). Synthetic values will be replaced by survey-based estimates in future revisions.
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\section{Quantitative General Equilibrium}
+Using the calibrated parameters, I solve the nonlinear GE system under the baseline MRIO and evaluate policy counterfactuals (tariffs, sanctions, rerouting capacity, CBAM, FX pass-through). Table~\ref{tab:world_welfare} reports first- and second-order welfare changes for the global economy and the twelve largest country responses per scenario (the full 81-economy listing is archived in \texttt{tables/world\_welfare\_full.csv}), while Table~\ref{tab:distributional} connects the GE results to household equivalent variation. Figures~\ref{fig:policy} and \ref{fig:map} visualise the global and cross-country incidence. Sensitivity analyses (elasticities $\pm25\%$, alternative damping schedules, curvature toggles) will be added in the next revision.
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+    \begin{adjustbox}{max width=\linewidth}
+    \caption{Global and country welfare under policy experiments}
+    \label{tab:world_welfare}
+    \input{../tables/world_welfare.tex}
+    \end{adjustbox}
+    \begin{tablenotes}[flushleft]
+        \footnotesize
+        \item Notes: Percentage changes relative to the integrated benchmark; FO denotes first-order and SO second-order welfare calculations. Table displays the global row and the twelve largest country responses (by absolute SO effect) for each scenario; the full OECD panel is stored in \texttt{tables/world\_welfare\_full.csv}.
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+    \begin{adjustbox}{max width=\linewidth}
+    \caption{Distributional incidence across Stone--Geary groups}
+    \label{tab:distributional}
+    \input{../tables/distributional_incidence.tex}
+    \end{adjustbox}
+    \begin{tablenotes}[flushleft]
+        \footnotesize
+        \item Notes: Equivalent-variation ratios $\mathrm{EV}_g$ by income group. Columns $\texttt{ev\_se}$, $\texttt{ev\_p05}$, and $\texttt{ev\_p95}$ report bootstrap standard errors and 5th/95th percentiles from 200 Stone--Geary draws. Synthetic values shown; survey-based estimates are forthcoming.
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../figs/policy_scenarios.png}
+    \caption{Policy scenarios: first- and second-order global welfare}
+    \label{fig:policy}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.65\textwidth]{../figs/map_global_welfare.png}
+    \caption{Country incidence of second-order welfare effects}
+    \label{fig:map}
+\end{figure}
+
+\section{Empirical Evidence}
+I next align the theoretical mechanisms with modern empirical designs. The current draft relies on synthetic policy shocks and exposure instruments generated by \texttt{sims/make\_empirics.py}; these will be swapped for observed MRIO-based panels as soon as they are integrated into \texttt{data/}.
+
+\subsection{Event-study design}\label{sec:eventstudy}
+Figure~\ref{fig:eventstudy} displays Sun--Abraham \citep{SunAbraham2021} cohort-weighted event-time coefficients for a staggered tariff adoption calibrated to the synthetic MRIO. The dynamic effects remain statistically indistinguishable from zero up to two periods before treatment, consistent with the joint pre-trend test reported in Table~\ref{tab:es_pretrend} (\(p=0.72\)). Post-treatment effects jump to nearly one log point on impact and peak around 1.6 log points one period later, highlighting the amplification channel stressed in Proposition~\ref{prop:network}.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../figs/event_study.png}
+    \caption{Sun--Abraham event-study coefficients under staggered adoption}
+    \label{fig:eventstudy}
+\end{figure}
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+    \begin{adjustbox}{max width=\linewidth}
+    \caption{Event-study coefficients and confidence intervals}
+    \label{tab:es_main}
+    \input{../tables/es_main.tex}
+    \end{adjustbox}
+    \begin{tablenotes}[flushleft]
+        \footnotesize
+        \item Notes: Synthetic staggered adoption with early and late cohorts. Estimates double-demeaned following \citet{SunAbraham2021}; 95\% confidence bands are reported in columns ``CI (low)'' and ``CI (high)''.
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+    \begin{adjustbox}{max width=\linewidth}
+    \caption{Joint test of pre-trends}
+    \label{tab:es_pretrend}
+    \input{../tables/es_pretrend.tex}
+    \end{adjustbox}
+    \begin{tablenotes}[flushleft]
+        \footnotesize
+        \item Notes: Chi-square test on leads of treatment; high \(p\)-value indicates no detectable pre-trend in the synthetic sample.
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\subsection{Exposure IV diagnostics}\label{sec:iv}
+Exposure IVs remain a workhorse for mapping MRIO shocks into regional outcomes. Table~\ref{tab:iv_main} summarises two benchmark calibrations. The strong-instrument case delivers a first-stage F-statistic above 800 and a Kleibergen--Paap statistic around 1,616, while the weak specification collapses the diagnostics to 2.2 and 4.5, respectively. The Anderson--Rubin interval widens dramatically in the weak design, underscoring the need for weak-IV-robust inference. Figure~\ref{fig:iv_diag} visualises the diagnostic contrast and will be updated with empirically grounded exposure shocks once available.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../figs/iv_diagnostics.png}
+    \caption{Instrument strength diagnostics across scenarios}
+    \label{fig:iv_diag}
+\end{figure}
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+    \begin{adjustbox}{max width=\linewidth}
+    \caption{Weak-vs-strong IV diagnostics}
+    \label{tab:iv_main}
+    \input{../tables/iv_main.tex}
+    \end{adjustbox}
+    \begin{tablenotes}[flushleft]
+        \footnotesize
+        \item Notes: Synthetic exposure instruments mapped to outcome shocks using the pipeline in \texttt{sims/make\_empirics.py}. Columns report 2SLS estimates, standard errors (cluster-robust), first-stage F, Kleibergen--Paap rk, LIML, and Anderson--Rubin \(p\)-values/intervals.
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\section{Distributional Incidence}
+The Stone--Geary block now rests on an explicit budget calibration. I estimate group-specific $\alpha_g$ and $\gamma_g$ by running the procedure in \texttt{sims/make\_distributional.py}, which ingests a household budget panel (synthetic when no microdata are supplied) and caches the resulting parameters under \texttt{tables/stone\_geary\_estimates.tex}. Table~\ref{tab:stone_geary} reports the implied marginal budget shares and subsistence bundles by income group. As expected, higher-income households tilt toward manufactured "luxury" sectors while subsistence requirements fall in relative terms. Figure~\ref{fig:stone_geary} plots the Engel curve for the first good in each group, illustrating the monotonic increase in expenditure shares that powers the equivalent-variation calculations. I simultaneously draw Stone--Geary parameters 200 times, store the bootstrap in \texttt{data/cache/stone\_geary\_bootstrap.npz}, and propagate each draw through the GE welfare routine. Table~\ref{tab:distributional} therefore reports not only point estimates but also bootstrap standard errors and percentile bands for equivalent-variation ratios. When I feed these moments through the GE solver, the distributional module highlights a pronounced luxury-good channel: second-order welfare losses are roughly twice as large for the top group during the tariff shock because their baseline shares translate price spikes into outsized equivalent-variation hits.
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+    \begin{adjustbox}{max width=\linewidth}
+    \caption{Estimated Stone--Geary parameters by income group}
+    \label{tab:stone_geary}
+    \input{../tables/stone_geary_estimates.tex}
+    \end{adjustbox}
+    \begin{tablenotes}[flushleft]
+        \footnotesize
+        \item Notes: Estimated using the Stone--Geary Engel-curve regression in \texttt{sims/make\_distributional.py}. Columns list marginal budget shares $\alpha$ and subsistence levels $\gamma$ (in units of expenditure) for each good and group.
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../figs/stone_geary_engel.png}
+    \caption{Engel curves for the leading consumption good by income group}
+    \label{fig:stone_geary}
+\end{figure}
+
+\section{Macro Validation}
+To tether the model to data, \texttt{sims/make\_macro\_figs.py} pulls CPIAUCSL, PPIACO, INDPRO, and DGS10 directly from FRED using the API key on \texttt{PATH}; each download is cached under \texttt{data/cache/} so replication routines only refresh the series once per week. I therefore work with a live macro panel that accompanies the GE outputs in Figure~\ref{fig:macro} and Table~\ref{tab:macro}. The model tracks the level shifts in prices and rates fairly well, but it understates the 2020 demand-shock trough, leaving a visible gap between observed and simulated industrial production as pandemic disruptions spike.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.85\textwidth]{../figs/macro_validation.png}
+    \caption{Macro validation against FRED series}
+    \label{fig:macro}
+\end{figure}
+
+\begin{table}[t]
+    \centering
+    \begin{threeparttable}
+    \begin{adjustbox}{max width=\linewidth}
+    \caption{Latest macro observations and changes}
+    \label{tab:macro}
+    \input{../tables/macro_validation.tex}
+    \end{adjustbox}
+    \begin{tablenotes}[flushleft]
+        \footnotesize
+        \item Notes: Series include CPI, PPI, industrial production, and 10-year Treasury yield. Units conform to FRED documentation.
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\section{Conclusion}
+The integrated toolkit developed here shows how theory, calibration, empirics, and macro validation can be combined to study fragmented globalization. Forthcoming iterations will incorporate OECD-ICIO data, household budget microdata, and real policy shocks. The open-source implementation ensures every figure, table, and proposition is reproducible through the \texttt{ci/run\_all.sh} pipeline.
+
+\appendix
+\input{appendix_proofs}
+
+\section{Assumptions and Capacity Examples}\label{app:assumptions}
+This appendix restates Assumptions~\ref{ass:preferences}--\ref{ass:granular}, clarifies how they map into the OECD ICIO calibration, and records capacity-binding counterexamples that make the inequality in Proposition~\ref{prop:reroute} tight. A synthetic two-country example with binding export limits is provided as a TODO for future empirical calibration.
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

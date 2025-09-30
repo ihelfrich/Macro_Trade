@@ -1,0 +1,27 @@
+{
+  "scenarios": [
+    {
+      "name": "Baseline",
+      "description": "No policy change baseline",
+      "policies": {}
+    },
+    {
+      "name": "Tariff Shock",
+      "description": "10% tariff on USA imports of Chinese basic metals (C24A)",
+      "policies": {
+        "tariffs": [
+          {"origin": "CHN", "dest": "USA", "sector": "C24A", "tau": 0.10}
+        ]
+      }
+    },
+    {
+      "name": "Sanction Shock",
+      "description": "Zero out intermediate flows from Russia to Germany",
+      "policies": {
+        "sanctions": [
+          {"origin": "RUS", "dest": "DEU"}
+        ]
+      }
+    }
+  ]
+}

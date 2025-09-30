@@ -1,0 +1,194 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{mathrsfs}
+\usepackage{booktabs}
+\usepackage{csquotes}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\onehalfspacing
+
+\title{Fragmented Globalization: Theory and Welfare in a Two-Bloc Trade Model}
+\author{Ian Helfrich}
+\date{\today}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This paper develops a rigorous theory of welfare under global trade fragmentation into two blocs within the ACR class of trade models. We define general equilibrium with multilateral resistance, income balance, and CES demand, then characterize welfare under complete and partial fragmentation. We derive (i) an exact sufficient-statistic result in symmetric cases (the ``$\psi$-rule''), (ii) general equilibrium bounds on welfare loss with endogenous price effects, (iii) a first-order welfare formula for small increases in cross-bloc trade costs, and (iv) a general sufficient-statistics theorem showing when fragmentation welfare can be pinned down using only pre-shock observables: the initial intra-bloc expenditure share and the trade elasticity. We discuss extensions to trade imbalances, asymmetric bloc sizes, and heterogeneous elasticities.
+\end{abstract}
+
+\section{Model Setup in the ACR Framework}
+
+Let countries be indexed by $i,j \in \{1,\dots,N\}$, partitioned into two blocs: Bloc A with index set $\mathcal{A}$ and Bloc B with index set $\mathcal{B}$, where $\mathcal{A} \cap \mathcal{B} = \emptyset$ and $\mathcal{A} \cup \mathcal{B} = \{1,\dots,N\}$. The model belongs to the ACR class. We assume:
+
+\paragraph{Preferences.}
+Each country $i$ has CES preferences over a continuum of varieties:
+\begin{equation}
+U_i = \left(\sum_{j=1}^N \int_{v \in \Omega_j} q_{ij}(v)^{\frac{\sigma-1}{\sigma}} \, dv \right)^{\frac{\sigma}{\sigma-1}}, \qquad \sigma>1.
+\end{equation}
+The dual price index is
+\begin{equation}
+P_i = \left(\sum_{j=1}^N \int_{v \in \Omega_j} p_{ij}(v)^{1-\sigma}\, dv\right)^{\frac{1}{1-\sigma}}.
+\end{equation}
+CES implies a constant trade elasticity $\epsilon = \sigma-1$.
+
+\paragraph{Technology and Endowments.}
+One factor (labor) with constant returns. Let $T_j$ denote a supply primitive (mass of varieties or productivity) for country $j$. Normalize factory-gate marginal cost to $c_j=1$ for all $j$. Endowment $L_i$ yields income $Y_i = w_i L_i$.
+
+\paragraph{Iceberg Trade Costs.}
+Shipping from $j$ to $i$ requires $\tau_{ij} \ge 1$ units. $\tau_{ii}=1$. Fragmentation increases \emph{cross-bloc} costs. The extreme case sets $\tau_{ij}\to\infty$ for $i\in \mathcal{A}, j\in \mathcal{B}$ (and vice versa), leaving within-bloc costs unchanged.
+
+\paragraph{Market Structure.}
+Perfect competition or monopolistic competition with constant markups is consistent with ACR results; aggregate gravity and welfare formulas coincide under our assumptions.
+
+\paragraph{Trade Imbalances.}
+Let total expenditure (absorption) be $E_i = Y_i + F_i$, where $F_i$ is an exogenous net transfer (surplus if $F_i>0$, deficit if $F_i<0$), with $\sum_i F_i=0$. Balanced trade is the special case $F_i=0$.
+
+\subsection*{Demand, Gravity, and Multilateral Resistance}
+
+Under CES and $c_j=1$, the price index simplifies to
+\begin{equation}
+P_i \;=\; \left(\sum_{j=1}^N T_j \,\tau_{ij}^{\,1-\sigma} \right)^{\frac{1}{1-\sigma}}.
+\end{equation}
+Expenditure shares (gravity) are
+\begin{equation}
+\pi_{ij} \equiv \frac{X_{ij}}{E_i} \;=\; \frac{T_j \,\tau_{ij}^{\,1-\sigma}}{\displaystyle \sum_{k=1}^N T_k \,\tau_{ik}^{\,1-\sigma}} \;=\; \frac{T_j \tau_{ij}^{\,1-\sigma}}{\Phi_i},
+\label{eq:gravity}
+\end{equation}
+where $\Phi_i \equiv \sum_{k} T_k \tau_{ik}^{\,1-\sigma}$ is an inward multilateral resistance term. In balanced-trade CES gravity, one can equivalently write the Anderson--van~Wincoop system linking inward and outward multilateral resistance.
+
+Goods market clearing with transfers is
+\begin{equation}
+Y_j \;=\; \sum_{i=1}^N X_{ij} + F_j \qquad \text{for each } j.
+\end{equation}
+Real income (welfare) is $W_i = \dfrac{E_i}{P_i} = \dfrac{Y_i+F_i}{P_i}$.
+
+\section{Fragmentation Equilibrium}
+
+Define the \emph{cross-bloc} import share for $i\in\mathcal{A}$ as
+\begin{equation}
+\psi_i \;\equiv\; \sum_{k\in \mathcal{B}} \pi_{ik}^{(0)},
+\end{equation}
+and the \emph{within-bloc} share $\lambda_{i,A}^{(0)} \equiv 1-\psi_i = \sum_{j\in \mathcal{A}} \pi_{ij}^{(0)}$. Under complete fragmentation (autarky between blocs), $\pi_{ik}^{(1)}=0$ for $k\in \mathcal{B}$ and $\sum_{j\in \mathcal{A}} \pi_{ij}^{(1)}=1$. Within each bloc, gravity holds with the restricted cost matrix.
+
+\section{ACR Welfare Mapping}
+
+The ACR welfare result implies that for any iceberg-cost shock in the ACR class,
+\begin{equation}
+\frac{W_i'}{W_i} \;=\; \left(\frac{\pi_{ii}'}{\pi_{ii}}\right)^{-1/\epsilon}.
+\label{eq:ACR}
+\end{equation}
+This identity follows from CES demand, gravity, and market clearing (see ACR 2012), and applies under our assumptions with $\epsilon=\sigma-1$.
+
+\section{Exact Symmetric Result: The $\psi$-Rule}
+
+Assume symmetry: identical countries, equal-sized blocs, and $\tau_{ij}^{(0)}=1$ for all $i\neq j$. Then initially each country spends a fraction $\psi = \frac{|\mathcal{B}|}{N}$ on the other bloc and $1-\psi$ within its own bloc.
+
+\begin{proposition}[Exact $\psi$-Rule under Symmetry]\label{prop:psi}
+Under complete fragmentation, the welfare ratio for any country is
+\begin{equation}
+\frac{W^{(1)}}{W^{(0)}} \;=\; (1-\psi)^{\,1/\epsilon}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Initially, $P^{(0)} = \big(N\cdot 1^{\,1-\sigma}\big)^{1/(1-\sigma)} = N^{1/(1-\sigma)}$. After fragmentation, each country accesses only its bloc: $P^{(1)} = \big((N/2)\cdot 1^{\,1-\sigma}\big)^{1/(1-\sigma)} = (N/2)^{1/(1-\sigma)}$. Hence
+\begin{equation}
+\frac{W^{(1)}}{W^{(0)}} \;=\; \frac{P^{(0)}}{P^{(1)}} \;=\; \left(\frac{N}{N/2}\right)^{\frac{1}{1-\sigma}} \;=\; (1/2)^{\frac{1}{1-\sigma}} \;=\; (1-\psi)^{1/\epsilon},
+\end{equation}
+since $1-\psi = 1/2$ and $\epsilon=\sigma-1$.
+\end{proof}
+
+\noindent \textbf{Corollary (Asymmetric Bloc Sizes).}
+If $\psi_i$ differs across countries (unequal bloc sizes or country weights), the same logic yields
+\begin{equation}
+\frac{W_i^{(1)}}{W_i^{(0)}} \;=\; (1-\psi_i)^{\,1/\epsilon}.
+\end{equation}
+
+\section{General-Equilibrium Bounds with Endogenous Price Effects}
+
+Without symmetry, exact closed forms generally require full GE solution. We can nonetheless bound welfare losses.
+
+\begin{proposition}[Bounds]\label{prop:bounds}
+For country $i$ with initial cross-bloc share $\psi_i$:
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Upper bound (no substitution):} $\,\dfrac{W_i^{(1)}}{W_i^{(0)}} \ge 1-\psi_i$.
+\item \textbf{Lower bound (perfect substitutes):} $\,\displaystyle \lim_{\epsilon\to\infty}\dfrac{W_i^{(1)}}{W_i^{(0)}} = 1$. For finite $\epsilon$, losses are strictly positive if $\psi_i>0$.
+\item \textbf{Monotonicity:} For given $\psi_i$, the welfare ratio is increasing in $\epsilon$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Sketch]
+The upper bound interprets the worst case as losing the $\psi_i$ fraction of spending with zero feasible substitution. The lower bound follows since $\epsilon\to\infty$ makes goods arbitrarily close substitutes; expenditure reallocation eliminates almost all loss. Monotonicity is standard with CES: higher $\epsilon$ makes substitution easier, reducing the price-index rise and thus the welfare loss.
+\end{proof}
+
+\section{First-Order Welfare Impact of Small Fragmentation}
+
+Consider a small proportional increase in all cross-bloc iceberg costs for $i\in\mathcal{A}$: $d\ln\tau_{ik} = d\ln\tau_{AB}$ for $k\in\mathcal{B}$ and zero otherwise.
+
+\begin{proposition}[First Order]\label{prop:FO}
+The first-order change in welfare is
+\begin{equation}
+d\ln W_i \;=\; -\,\psi_i\, d\ln \tau_{AB},
+\end{equation}
+where $\psi_i = \sum_{k\in\mathcal{B}} \pi_{ik}^{(0)}$.
+\end{proposition}
+
+\begin{proof}
+Differentiate the CES price index:
+\begin{equation}
+d\ln P_i \;=\; \sum_{j} \pi_{ij}^{(0)}\, d\ln \tau_{ij} \;=\; \sum_{k\in\mathcal{B}} \pi_{ik}^{(0)}\, d\ln \tau_{AB} \;=\; \psi_i\, d\ln \tau_{AB}.
+\end{equation}
+To first order, $d\ln(Y_i+F_i)=0$, so $d\ln W_i = -\,d\ln P_i = -\,\psi_i\, d\ln\tau_{AB}$.
+\end{proof}
+
+\section{A General Sufficient-Statistic Theorem}
+
+We identify conditions under which fragmentation welfare is pinned down by pre-shock observables.
+
+\begin{theorem}[Sufficient Statistics for Fragmentation]\label{thm:SS}
+Suppose: (i) CES import demand with constant trade elasticity $\epsilon$, (ii) gravity holds, (iii) homothetic preferences and constant returns, (iv) $F_i$ are exogenous and fixed, and (v) no additional distortions are introduced. Then the welfare effect of moving from integration to complete two-bloc fragmentation is
+\begin{equation}
+\frac{W_i^{(1)}}{W_i^{(0)}} \;=\; \left(\frac{\lambda_{i,A}^{(1)}}{\lambda_{i,A}^{(0)}}\right)^{-1/\epsilon},
+\end{equation}
+where $\lambda_{i,A}$ is the share of expenditure on Bloc A sources. Under complete fragmentation, $\lambda_{i,A}^{(1)}=1$, so
+\begin{equation}
+\frac{W_i^{(1)}}{W_i^{(0)}} \;=\; \big(\lambda_{i,A}^{(0)}\big)^{-1/\epsilon} \;=\; (1-\psi_i)^{1/\epsilon}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+In the ACR class, welfare changes map to changes in the home-expenditure share via \eqref{eq:ACR}. Aggregating sources to \emph{within-bloc} versus \emph{cross-bloc}, complete fragmentation sets the cross-bloc share to zero, i.e.\ $\lambda_{i,A}^{(1)}=1$. Conditions (i)--(v) ensure no extra terms enter the welfare calculation (e.g.\ transfers fixed, no non-homothetic income effects). Thus
+\begin{equation}
+\frac{W_i^{(1)}}{W_i^{(0)}} \;=\; \left(\frac{\lambda_{i,A}^{(1)}}{\lambda_{i,A}^{(0)}}\right)^{-1/\epsilon} \;=\; \big(\lambda_{i,A}^{(0)}\big)^{-1/\epsilon}.
+\end{equation}
+Since $\lambda_{i,A}^{(0)} = 1-\psi_i$, the result follows.
+\end{proof}
+
+\section{Extensions and Remarks}
+\paragraph{Trade Imbalances.} If transfers $F_i$ adjust endogenously after fragmentation, additional welfare terms appear. A first-order correction augments $d\ln W_i$ with $d\ln(Y_i+F_i)$, which depends on the equilibrium financial adjustment. With exogenous fixed $F_i$, Theorem~\ref{thm:SS} is exact.
+
+\paragraph{Non-homothetic Preferences.} If preferences are non-homothetic, reallocation across goods can change effective elasticities. Sectoral or quality-based sufficient statistics would be needed; the one-sector formula provides an upper bound on the loss when high-income-elasticity consumption is disproportionately cross-bloc.
+
+\paragraph{Asymmetric Bloc Sizes.} The sufficient-statistics formula already accommodates asymmetry via $\psi_i$. Countries in the smaller bloc typically have larger $\psi_i$ and suffer larger losses.
+
+\paragraph{Heterogeneous Elasticities.} With multiple sectors $s$ and sectoral elasticities $\epsilon_s$, the welfare effect multiplies sectoral components:
+\begin{equation}
+\frac{W_i^{(1)}}{W_i^{(0)}} \;=\; \prod_{s} \left(\frac{\lambda_{i,A,s}^{(1)}}{\lambda_{i,A,s}^{(0)}}\right)^{- \alpha_{is}/\epsilon_s},
+\end{equation}
+where $\alpha_{is}$ is the sector $s$ expenditure share in $i$ and $\lambda_{i,A,s}$ the within-bloc share in sector $s$.
+
+\section{Discussion}
+Within a one-sector CES environment, fragmentation welfare is governed by two observables: the initial cross-bloc expenditure share $\psi_i$ and the trade elasticity $\epsilon$. The exact $\psi$-rule holds under symmetry and remains a tight guide more generally. First-order results provide linear policy rules for small decoupling steps, while the sufficient-statistics theorem delivers an exact mapping under standard ACR conditions with fixed imbalances.
+
+\end{document}

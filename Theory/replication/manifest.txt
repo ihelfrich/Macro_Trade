@@ -1,0 +1,20 @@
+replication/manifest.txt: replication/README.md
+src/common/io.py: 
+src/empirics/exposure_iv.py: src/empirics/utils.py
+src/empirics/exposure_ssa.py: src/empirics/utils.py
+src/empirics/granular_test.py: src/empirics/utils.py
+src/empirics/io_pass_through.py: src/empirics/utils.py, src/trade/io.py
+src/empirics/nh_dispersion.py: src/empirics/utils.py, src/trade/nonhomothetic.py
+src/empirics/utils.py: 
+src/trade/core.py: 
+src/trade/granular.py: 
+src/trade/io.py: 
+src/trade/nonhomothetic.py: 
+src/trade/tri_node.py: 
+sims/run_granular.py: sims/configs/granular.yaml, src/trade/granular.py
+sims/run_io.py: sims/configs/io_strength.yaml, src.trade.io
+sims/run_nonhomothetic.py: sims/configs/nonhomothetic.yaml, src.trade.nonhomothetic
+sims/run_tri_node.py: sims/configs/tri_node_baseline.yaml, src.trade.tri_node
+sims/make_figures.py: sims/out/*_results.csv
+sims/make_tables.py: sims/out/*_results.csv
+paper/main.tex: figs/*.png, tables/*.tex, paper/lit.bib

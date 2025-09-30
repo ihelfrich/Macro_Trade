@@ -1,0 +1,5 @@
+income: [100, 200]
+prices0: [1, 1]
+alpha: [0.3, 0.5]
+gamma: [10, 10]
+price_shocks: [1.1, 1.2, 1.3, 1.4, 1.5]
