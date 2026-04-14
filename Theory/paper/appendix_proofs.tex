@@ -1,69 +1,136 @@
 \section{Proofs of Propositions}\label{app:proofs}
-This appendix provides detailed proofs of Propositions~\ref{prop:reroute}--\ref{prop:bf_bound}. Throughout, $A(\tau)$ denotes the trade-adjusted input--output matrix, $L(\tau) = (I-A(\tau)^{\top})^{-1}$ the Leontief inverse, and $e_r(p,u)$ the Stone--Geary expenditure function for region $r$ evaluated at price vector $p$ and utility $u$.
+This appendix provides detailed proofs of Propositions~\ref{prop:existence}--\ref{prop:bf_bound}. Throughout, $A(\tau)$ denotes the trade-adjusted input--output matrix, $L(\tau) = (I-A(\tau)^{\top})^{-1}$ the Leontief inverse of the price system, and $\omega$ the vector of Domar weights solving $(I-A(\tau)^{\top})\omega = s$, where $s$ collects baseline value-added shares. Given log value-added wedges $w$, we write $\Delta \log p = L(\tau)w$ for the induced log price response and $\Delta \log W$ for the aggregate log welfare change.
+
+\subsection{Proof of Proposition~\ref{prop:existence}}
+Let $x = \log p$ and define $h(x) = \log \Psi(x)$, where $\Psi$ stacks the zero-profit residuals implied by the general-equilibrium system in the main text. Assumptions~\ref{ass:preferences}--\ref{ass:technology} ensure that $h$ is continuously differentiable on the neighbourhood
+\begin{equation*}
+    \mathcal{X} = \bigl\{x : \|x - x^0\|_\infty \leq \bar{r}\bigr\}
+\end{equation*}
+around the calibrated solution $x^0 = \log p^0$. In this neighbourhood the Jacobian of $h$ admits the representation
+\begin{equation}
+\label{eq:h-jac}
+    \nabla h(x) = A(x)^{\top}, \qquad \|A(x)^{\top}\|_2 \leq \bar{\rho} < 1,
+\end{equation}
+where $A(x)$ collects cost-share matrices induced by the Armington aggregator and the Leontief technology. The bound follows from Shephard's lemma and the fact that trade shares remain within $\bar{r}$ of the calibrated values, which themselves satisfy $\rho\bigl(A(\tau)\bigr) < 1$ by Assumption~\ref{ass:technology}. Let $B = (I-A(\tau)^{\top})^{-1}$ be the inverse evaluated at the calibration. Because $A(\tau)$ is a non-negative matrix with spectral radius below one, $B$ is an $M$-matrix with eigenvalues bounded between $1$ and $1/(1-\rho(A(\tau)))$.
+
+The damped Newton operator from the main text can be written as
+\begin{equation*}
+    \Phi_{\delta}(x) = x - \delta B\,g(x), \qquad g(x) = x - h(x).
+\end{equation*}
+For any $x,y \in \mathcal{X}$,
+\begin{equation*}
+    \Phi_{\delta}(x) - \Phi_{\delta}(y) = \left[I - \delta B \int_{0}^{1} \nabla g\bigl(y + t(x-y)\bigr)\, \mathrm{d}t\right] (x-y).
+\end{equation*}
+The mean-value theorem yields $\nabla g(x) = I - A(x)^{\top}$. Combining the eigenvalue bounds for $B$ and \eqref{eq:h-jac} therefore implies
+\begin{equation*}
+    \lambda_{\min}\bigl( B\nabla g(z)\bigr) \geq (1-\bar{\rho}), \qquad \lambda_{\max}\bigl( B\nabla g(z)\bigr) \leq \frac{1+\bar{\rho}}{1-\rho(A(\tau))} \quad \text{for all } z \in \mathcal{X}.
+\end{equation*}
+Consequently, every eigenvalue of the integral in the bracketed term lies in the interval $[1-\delta(1-\bar{\rho}),\, 1-\delta\kappa]$ with
+\begin{equation*}
+    \kappa = \frac{1-\bar{\rho}}{1-\rho(A(\tau))} > 0.
+\end{equation*}
+If the damping parameter obeys
+\begin{equation*}
+    0 < \delta < \frac{2}{1+\bar{\rho}},
+\end{equation*}
+then $|1-\delta\kappa| < 1$ and the spectral radius of every Jacobian $\nabla \Phi_{\delta}(z)$ is strictly below one. By the mean-value theorem this implies the global Lipschitz bound
+\begin{equation*}
+    \bigl\|\Phi_{\delta}(x) - \Phi_{\delta}(y)\bigr\|_2 \leq c\,\|x-y\|_2 \qquad \text{with } c < 1,
+\end{equation*}
+so $\Phi_{\delta}$ is a contraction on $\mathcal{X}$. Banach's fixed-point theorem delivers the unique fixed point $x^{\star}$ together with linear convergence of the iteration $x^{(k+1)} = \Phi_{\delta}(x^{(k)})$ for any starting point inside $\mathcal{X}$. Exponentiating component-wise establishes the claimed result for prices $p^{\star} = \exp(x^{\star})$.\qed
 
 \subsection{Proof of Proposition~\ref{prop:reroute}}
-The household problem can be written as $\min_{C_r \geq \gamma_r} p_r^{\top} C_r$ subject to the utility constraint $U_r(C_r) \geq \bar{U}_r$. The associated expenditure function $e_r(p, \bar{U}_r)$ is convex and positively homogeneous in prices. Let $\mathcal{Q}_{\mathrm{reroute}}$ be the set of feasible gross-output allocations that satisfy the market-clearing conditions \eqref{eq:mc}--\eqref{eq:final-demand} under the post-shock trade costs. Optimal rerouting solves
+The household problem can be written as $\min_{C_r \geq \gamma_r} p_r^{\top} C_r$ subject to the utility constraint $U_r(C_r) \geq \bar{U}_r$. The associated expenditure function $e_r(p, \bar{U}_r)$ is convex and positively homogeneous in prices. Let $\mathcal{Q}_{\mathrm{reroute}}$ be the set of feasible gross-output allocations that satisfy the market-clearing conditions in the main text under the post-shock trade costs. Optimal rerouting solves
 \begin{equation}
 \label{eq:reroute-problem}
 \min_{q \in \mathcal{Q}_{\mathrm{reroute}}} \sum_{r \in \mathcal{R}} e_r\bigl(p_r(q), \bar{U}_r\bigr),
 \end{equation}
-where $p_r(q)$ stacks the sectoral prices implied by \eqref{eq:zp}. Full severance forces flows on the $a$--$b$ cut to zero, shrinking the feasible set to
+where $p_r(q)$ stacks the sectoral prices implied by the zero-profit conditions. Full severance forces flows on the $a$--$b$ cut to zero, shrinking the feasible set to
 \begin{equation*}
 \mathcal{Q}_{\mathrm{sever}} = \bigl\{q \in \mathcal{Q}_{\mathrm{reroute}} : q_{abk} = 0 = q_{bak}\ \forall k \in \mathcal{S}\bigr\} \subseteq \mathcal{Q}_{\mathrm{reroute}}.
 \end{equation*}
-Because \eqref{eq:reroute-problem} is a convex programme, the associated value function is monotone with respect to set inclusion: restricting the feasible set weakly raises the optimum. Hence the welfare loss under rerouting is weakly smaller than under severance. If elasticities or capacities imply that every feasible rerouting plan already satisfies $q_{abk}=q_{bak}=0$, the two sets coincide and the losses match. When Assumption~\ref{ass:capacity} fails (for example, by imposing binding export caps on all alternative partners of bloc $a$) the severed allocation can remain feasible while the rerouting problem becomes infeasible, yielding a counterexample to strict dominance.
-\qed
+Because the programme \eqref{eq:reroute-problem} is convex, the associated value function is monotone with respect to set inclusion: restricting the feasible set weakly raises the optimum. Hence the welfare loss under rerouting is weakly smaller than under severance. If elasticities or capacities imply that every feasible rerouting plan already satisfies $q_{abk}=q_{bak}=0$, the two sets coincide and the losses match. When Assumption~\ref{ass:capacity} fails (for example, by imposing binding export caps on all alternative partners of bloc $a$) the severed allocation can remain feasible while the rerouting problem becomes infeasible, yielding a counterexample to strict dominance.\qed
 
 \subsection{Proof of Proposition~\ref{prop:network}}
-Let $w$ be the vector of log value-added wedges. Totally differentiating the zero-profit system \eqref{eq:zp} yields $\Delta \log p = L(\tau) w$. Aggregate welfare satisfies
+Given log value-added wedges $w$, the log price perturbation solves $(I-A(\tau)^{\top})\Delta\log p = w$, so $\Delta\log p = L(\tau)w$. The first-order welfare change equals $\Delta \log W^{(1)} = -\omega^{\top}\Delta\log p$. Taking absolute values and applying Hölder's inequality yields
 \begin{equation*}
-\Delta \log W = -\omega^{\top} \Delta \log p = -\omega^{\top} L(\tau) w.
+    \bigl|\Delta \log W^{(1)}\bigr| \leq \|\omega\|_{1}\,\|\Delta\log p\|_{\infty} \leq \|\omega\|_{1}\,\|L(\tau)\|_{\infty}\,\|w\|_{\infty},
 \end{equation*}
-By Hölder's inequality, $|\Delta \log W| \leq \|\omega\|_1 \|L(\tau) w\|_\infty \leq \|\omega\|_1 \|L(\tau)\|_\infty \|w\|_\infty$. To bound $\|L(\tau)\|$, use the Neumann series $L(\tau) = \sum_{k\geq 0} (A(\tau)^{\top})^k$, which converges when $\rho(A(\tau))<1$. Taking induced norms and applying sub-multiplicativity delivers
-\begin{equation*}
-\|L(\tau)\|_{2} \leq \sum_{k\geq 0} \|A(\tau)^{\top}\|_{2}^{k} = \frac{1}{1-\|A(\tau)\|_{2}} \leq \frac{1}{1-\rho(A(\tau))},
-\end{equation*}
-where the final inequality follows from Gelfand's formula for the spectral radius. Combining the bounds for the $1$-, $2$-, and $\infty$-norms yields the first statement of the proposition.
+which proves the stated bound because $L(\tau)$ is non-negative under Assumption~\ref{ass:technology} and therefore has operator $\infty$-norm equal to its maximal row sum.
 
-For the second-order approximation, expand $L(\tau)$ around the identity: $L(\tau)=I + A(\tau)^{\top} + R_2$ with
+To control the second-order truncation error, recall the Baqaee--Farhi expansion
+\begin{equation}
+\label{eq:bf-expansion}
+    \Delta \log W = -\omega^{\top}\Delta\log p - \tfrac{1}{2}\,\Delta\log p^{\top}\operatorname{diag}(\varepsilon)\Delta\log p + R_3(w),
+\end{equation}
+where $\varepsilon$ collects the sectoral curvature objects and $R_3(w)$ is a third-order remainder. Let $\bar{\varepsilon} = \max_s \varepsilon_s$. Because $\operatorname{diag}(\varepsilon)$ is positive semidefinite we have
 \begin{equation*}
-R_2 = \sum_{k \geq 2} (A(\tau)^{\top})^k.
+    \bigl|\Delta\log p^{\top}\operatorname{diag}(\varepsilon)\Delta\log p\bigr| \leq \bar{\varepsilon}\,\|\Delta\log p\|_2^2 \leq \bar{\varepsilon}\,\|L(\tau)\|_2^2\,\|w\|_2^2.
 \end{equation*}
-Truncating after the linear term gives the first-order welfare change $\Delta \log W^{(1)} = -\omega^{\top}(I + A(\tau)^{\top})w$. The remainder obeys
+For a non-negative matrix $A(\tau)$ with spectral radius strictly below one, $\|L(\tau)\|_2 \leq (1-\rho(A(\tau)))^{-1}$, so the quadratic term is bounded by $\frac{\bar{\varepsilon}}{(1-\rho(A(\tau)))^{2}}\|w\|_2^2$. Assumption~\ref{ass:shocks} places the wedges inside a compact neighbourhood of the origin. The third-order remainder is therefore controlled by a constant $C$ depending only on primitives: there exists $\bar{r}>0$ such that $\|w\|_2\leq \bar{r}$ and $|R_3(w)| \leq C\,\|w\|_2^3 \leq C\bar{r}\,\|w\|_2^2$. Combining these bounds with \eqref{eq:bf-expansion} shows that
 \begin{equation*}
-\bigl|\Delta \log W - \Delta \log W^{(1)}\bigr| \leq \|\omega\|_2 \|R_2 w\|_2 \leq \|\omega\|_2 \sum_{k\geq 2} \|A(\tau)\|_{2}^k \|w\|_2 = \|\omega\|_2 \frac{\|A(\tau)\|_{2}^2}{1-\|A(\tau)\|_{2}} \|w\|_2.
+    \bigl|\Delta \log W - \Delta \log W^{(1)}\bigr| \leq \frac{1}{2}\,\kappa(\rho(A(\tau)),\varepsilon)\,\|w\|_2^2,
 \end{equation*}
-Because $\|A(\tau)\|_{2} \leq \rho(A(\tau)) < 1$, the remainder is $O((1-\rho(A(\tau)))^{-3}\|w\|_2^3)$ when expressed in terms of $\Delta \log p = L(\tau)w$, as stated in the proposition.
-\qed
+where $\kappa(\rho(A(\tau)),\varepsilon) = 2\bar{\varepsilon}(1-\rho(A(\tau)))^{-2} + 2C\bar{r}$ depends only on the spectral radius of $A(\tau)$ and the curvature parameters.\qed
 
 \subsection{Proof of Proposition~\ref{prop:granular}}
-Fix a region $r$ and Stone--Geary parameters $(\alpha_{rk},\gamma_{rk})$. Let exposure concentration be indexed by $s \in [0,1]$ and suppose prices obey $p_k(s) = p_{0k} \exp(\beta_k s)$, where $\beta_k$ captures the granular shock loading. The regional expenditure function is
+Consider a collection of firms indexed by $i$ within a sector $s$ that belongs to bloc $a$. Let $s_i$ denote the share of the bloc's cross-border purchases accounted for by firm $i$, so that $\sum_i s_i = \psi_{as}$ and the concentration index is $H = \sum_i s_i^2$. Firm-level shocks are modelled as value-added wedges $\theta_i$ with $\mathbb{E}[\theta_i]=0$, variance $\sigma_s^2$, and finite fourth moment as stated in Assumption~\ref{ass:granular}. Aggregating the wedges yields $w = \lambda S\theta$, where $\lambda$ scales the size of the disturbance, $\theta$ stacks the independent shocks, and $S$ is the diagonal matrix with entries $s_i$.
+
+Because prices respond linearly to wedges,
 \begin{equation*}
- e_r\bigl(p(s), \bar{U}_r\bigr) = p(s)^{\top} \gamma_r + \bar{U}_r \prod_{k\in\mathcal{S}} \left(\frac{p_k(s)}{\alpha_{rk}}\right)^{\alpha_{rk}}.
+    \Delta\log p = \lambda L(\tau)S\theta.
 \end{equation*}
-Equivalent variation for group $h$ is the ratio $\mathrm{EV}_h(s) = e_h(p(s),\bar{U}_h)/e_h(p(0),\bar{U}_h)$, and welfare loss is $\ell_h(s) = \log \mathrm{EV}_h(s)$. Differentiating twice yields
+Substituting this expression into the Baqaee--Farhi expansion \eqref{eq:bf-expansion} provides the log welfare change associated with a realisation of the granular shock:
+\begin{equation}
+\label{eq:granular-dlogw}
+    \Delta \log W(\theta) = -\lambda\,\theta^{\top}S B\omega - \tfrac{1}{2}\lambda^2\,\theta^{\top} S B^{\top}\operatorname{diag}(\varepsilon) B S\theta + R_3(\lambda,\theta),
+\end{equation}
+where $B = L(\tau)$ and the remainder collects terms of order $\mathcal{O}(\lambda^3\|\theta\|^3)$.
+
+Taking expectations with respect to the shocks, the first term in \eqref{eq:granular-dlogw} vanishes by independence and zero mean. Independence also implies $\mathbb{E}[\theta\theta^{\top}] = \sigma_s^2 I$ and $\mathbb{E}[\theta\theta^{\top}D\theta\theta^{\top}] = 2\sigma_s^4 D + \kappa_s$ for any diagonal matrix $D$, where $\kappa_s \succeq 0$ collects fourth cumulants. Consequently,
+\begin{align*}
+    -\mathbb{E}[\Delta \log W] &= \tfrac{1}{2}\lambda^2\sigma_s^2\,\mathrm{tr}\bigl(S B^{\top}\operatorname{diag}(\varepsilon) B S\bigr) + \mathcal{O}(\lambda^3 H^{3/2}), \\
+    \mathbb{E}\bigl[(\Delta \log W)^2\bigr] &= \lambda^2\sigma_s^2\,\|B^{\top}\omega\|_{S}^2 + \tfrac{1}{2}\lambda^4\sigma_s^4\,\mathrm{tr}\bigl((S B^{\top}\operatorname{diag}(\varepsilon) B S)^2\bigr) + \mathcal{O}(\lambda^5 H^{5/2}),
+\end{align*}
+where $\|x\|_{S}^2 = x^{\top}S^2 x$. Define
 \begin{equation*}
-\ell_h''(s) = \sum_{k \in \mathcal{S}} \alpha_{hk} \beta_k^2 + \sum_{k,\ell \in \mathcal{S}} \alpha_{hk}\alpha_{h\ell} \beta_k \beta_{\ell} + \sum_{k \in \mathcal{S}} \frac{\gamma_{hk}}{C_{hk}(s)-\gamma_{hk}}\beta_k^2,
+    G = B^{\top}\operatorname{diag}(\varepsilon) B, \qquad \underline{\gamma}_s = \min_i G_{ii} > 0, \qquad \underline{\eta}_s = \min_i \bigl((B^{\top}\omega)_i\bigr)^2 > 0.
 \end{equation*}
-where $C_{hk}(s)$ is the Marshallian demand implied by \eqref{eq:armington-demand}. Each term is non-negative because $\alpha_{hk}\geq 0$ and $C_{hk}(s) > \gamma_{hk}$ by Assumption~\ref{ass:preferences}. Aggregating across agents with welfare weights preserves convexity, so $\ell(s)$ is convex in the concentration index $H = \sum_i s_i^2$. Strict convexity obtains whenever at least one $\beta_k$ is non-zero or some sector operates above subsistence, both guaranteed under Assumptions~\ref{ass:preferences} and~\ref{ass:granular}.
-\qed
+Because $G$ and $B^{\top}\omega$ have strictly positive components, the preceding display implies the lower bounds
+\begin{align*}
+    -\mathbb{E}[\Delta \log W] &\geq \tfrac{1}{2}\lambda^2\sigma_s^2\,\underline{\gamma}_s H + \mathcal{O}(\lambda^3 H^{3/2}), \\
+    \mathbb{E}\bigl[(\Delta \log W)^2\bigr] &\geq \lambda^2\sigma_s^2\,\underline{\eta}_s H + \tfrac{1}{2}\lambda^4\sigma_s^4\,\underline{\gamma}_s^2 H^2 + \mathcal{O}(\lambda^5 H^{5/2}).
+\end{align*}
+
+Welfare losses are evaluated in equivalent-variation units. Let $\Lambda = \exp(\Delta \log W)$ denote the welfare ratio. A second-order Taylor expansion gives
+\begin{equation*}
+    1 - \mathbb{E}[\Lambda] = -\mathbb{E}[\Delta \log W] - \tfrac{1}{2}\mathbb{E}\bigl[(\Delta \log W)^2\bigr] + \mathcal{O}(\lambda^3 H^{3/2}).
+\end{equation*}
+Combining the bounds above we find
+\begin{equation*}
+    1 - \mathbb{E}[\Lambda] \geq \alpha_s\lambda^2 H + \beta_s\lambda^4 H^2 + o(H^2),
+\end{equation*}
+with positive constants
+\begin{equation*}
+    \alpha_s = \tfrac{1}{2}\sigma_s^2(\underline{\gamma}_s + \underline{\eta}_s), \qquad \beta_s = \tfrac{1}{4}\sigma_s^4\,\underline{\gamma}_s^2,
+\end{equation*}
+which depend only on Stone--Geary marginal budget shares (through $\omega$) and Armington elasticities (through $\varepsilon$). Thus the welfare loss $\ell(H) = 1 - \mathbb{E}[\Lambda]$ is increasing and admits the local representation $\ell(H) = \alpha_s\lambda^2 H + \beta_s\lambda^4 H^2 + o(H^2)$. Because $\beta_s>0$, the second derivative satisfies $\ell''(H) = 2\beta_s\lambda^4 + o(1) > 0$ for sufficiently small shocks, establishing strict convexity in the concentration index.\qed
 
 \subsection{Proof of Proposition~\ref{prop:bf_bound}}
-Let $\phi(w)$ denote aggregate welfare as a function of log wedges $w$. The exact welfare change has the multivariate Taylor expansion around $w=0$:
+Let $\Delta \log W^{(1)} = -\omega^{\top}\Delta\log p$ denote the first-order welfare approximation. Subtracting this quantity from both sides of \eqref{eq:bf-expansion} yields
 \begin{equation*}
-\phi(w) = \phi(0) + \nabla \phi(0)^{\top} w + \tfrac{1}{2} w^{\top} \nabla^2 \phi(0) w + R_3(w).
+    \Delta \log W - \Delta \log W^{(1)} = -\tfrac{1}{2}\,\Delta\log p^{\top}\operatorname{diag}(\varepsilon)\Delta\log p + R_3(w).
 \end{equation*}
-The gradient is $\nabla \phi(0) = -\omega$ and the Hessian equals $-H$ with $H = L(\tau)^{\top} \operatorname{diag}(\varepsilon) L(\tau)$, yielding the second-order approximation stated in the proposition. To bound the remainder $R_3(w)$, invoke Taylor's theorem with integral form of the remainder:
+The first term on the right-hand side can be bounded using the maximal curvature parameter $\bar{\varepsilon}$ and the operator $2$-norm of $L(\tau)$:
 \begin{equation*}
-R_3(w) = -\tfrac{1}{6} \int_{0}^{1} (1-t)^2 \sum_{i,j,k} \frac{\partial^3 \phi(t w)}{\partial w_i \partial w_j \partial w_k} w_i w_j w_k \; \mathrm{d}t.
+    \bigl|\Delta\log p^{\top}\operatorname{diag}(\varepsilon)\Delta\log p\bigr| \leq \bar{\varepsilon}\,\|L(\tau)\|_2^2\,\|w\|_2^2.
 \end{equation*}
-Third derivatives of $\phi$ inherit the structure of higher-order Leontief inverses. Assumptions~\ref{ass:technology} and~\ref{ass:shocks} imply $\|L(\tau)\|_2 \leq (1-\rho(A(\tau)))^{-1}$ and $\|\operatorname{diag}(\varepsilon)\|_2 \leq \overline{\varepsilon}$, where $\overline{\varepsilon} = \max_k \varepsilon_k$. Consequently,
+As in the proof of Proposition~\ref{prop:network}, $\|L(\tau)\|_2 \leq (1-\rho(A(\tau)))^{-1}$. Assumption~\ref{ass:shocks} bounds the remainder by $|R_3(w)| \leq C\bar{r}\,\|w\|_2^2$ for some constant $C$ depending only on higher derivatives of the expenditure function. Combining these inequalities gives
 \begin{equation*}
-\left|\frac{\partial^3 \phi(t w)}{\partial w_i \partial w_j \partial w_k}\right| \leq \frac{\overline{\varepsilon}\,\|L(\tau)\|_2^3}{1} = \frac{\overline{\varepsilon}}{(1-\rho(A(\tau)))^{3}}.
+    \bigl|\Delta \log W - \Delta \log W^{(1)}\bigr| \leq \tfrac{1}{2}\,\lambda_{\max}(H)\,\|\Delta\log p\|_2^2 \leq \tfrac{1}{2}\,\Gamma\,\|w\|_2^2,
 \end{equation*}
-Combining the bound with Cauchy--Schwarz gives
+where $H = L(\tau)^{\top}\operatorname{diag}(\varepsilon)L(\tau)$ and
 \begin{equation*}
-|R_3(w)| \leq \frac{\overline{\varepsilon}}{6(1-\rho(A(\tau)))^{3}} \|w\|_2^{3}.
+    \Gamma = \lambda_{\max}(H) + 2C\bar{r} = \frac{\bar{\varepsilon}}{(1-\rho(A(\tau)))^{2}} + 2C\bar{r}
 \end{equation*}
-Finally, because $\Delta \log p = L(\tau) w$, we may express $\|w\|_2 \leq \|L(\tau)^{-1}\|_2 \|\Delta \log p\|_2$ and absorb the resulting factor into the stated constant, yielding the desired second-order bound.
-\qed
+is strictly positive. This is precisely the bound stated in Proposition~\ref{prop:bf_bound}.\qed
