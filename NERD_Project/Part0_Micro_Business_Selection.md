@@ -1,24 +1,21 @@
 # NERD Project — Part 0: Business Selection (Microeconomics)
 
-> **Model solution.** A worked, full-credit example of the *micro* Part 0 — the
-> business-selection version. Upload-ready **.docx** and **.pdf** exports accompany
-> this file. It is **not** for copying: pick your own business (confirm it's still
-> available on the "NERD Checks" forum / *Chosen NERD Businesses* list first) and
-> write the Justification and Focus Question in your own voice.
->
-> **Submission format:** upload a **Word document (.docx) or PDF** — not a Google
-> Doc / OneDrive link. *Prepared June 2026.*
+> **Model solution.** Worked example of the *micro* Part 0 (business selection).
+> Upload-ready **.docx** and **.pdf** exports accompany this file. Written in a
+> natural first-person voice — pick your own business and use your own words.
+> *Prepared June 2026.*
 
 ---
 
 ## 1. Business Choices & Compliance
 
-My top three, in order of preference. All three are **local**, independently owned
-cafés in Koreatown, Los Angeles (not national chains); all are **niche** (matcha /
-specialty-coffee specialists, not do-everything diners); all are **public**
-(storefronts plus public websites, Instagram, and Yelp listings); and each sells a
-clear **good and service** (drinks and pastries, made and served in-house). None
-appear on the *Chosen NERD Businesses* list.
+My top three, in order of preference. All three are small, independently owned
+cafés in Koreatown (so they're local, not national chains), all three are pretty
+niche — they specialize in matcha or specialty coffee instead of trying to be a
+do-everything diner — and all three are easy to find publicly through their own
+sites, Instagram, and Yelp. Each one sells an actual product (drinks, pastries)
+plus the service of making it, so there are real posted prices I can dig into.
+None of them are on the Chosen NERD Businesses list.
 
 | Rank | Business | Type (good / service) | Address | Link |
 |:----:|----------|----------------------|---------|------|
@@ -28,49 +25,53 @@ appear on the *Chosen NERD Businesses* list.
 
 **How each one meets the four requirements:**
 
-- **Local:** all three are independent Koreatown shops — none is part of a national chain.
-- **Niche:** each is built around a specialized product (Stagger and Matsu are matcha-first; Document is a pour-over / specialty-coffee bar), not a general menu.
-- **Public:** each has a physical storefront plus a public website or Instagram and Yelp page, so prices and details are findable without insider access.
-- **Good / Service:** each sells a physical product (drinks, pastries, gelato) *and* the service of making and serving it in-house — so there are real posted prices to analyze.
+- **Local:** all three are independent Koreatown shops — none of them is a branch of some national chain.
+- **Niche:** each one is built around a specialty (Stagger and Matsu are matcha-first; Document is more of a pour-over / specialty coffee bar) instead of a giant general menu.
+- **Public:** they've all got a real storefront plus a public website or Instagram and a Yelp page, so I can find prices and details without needing any insider access.
+- **Good / Service:** each sells a physical product (drinks, pastries, gelato) and the service of making and serving it, so there are actual posted prices to work with.
 
-I'm leading with Stagger for the reasons below.
+I'm leading with Stagger, for the reasons below.
 
 ---
 
 ## 2. Niche Justification (top choice — Stagger Coffee)
 
-Stagger Coffee isn't a general neighborhood café; it's a matcha specialist whose
-whole identity is built around one premium product, the ceremonial-grade *Double
-Matcha Latte* (matcha whisked into both the milk and the cream on top) that made
-it go viral. That tight focus on a single specialized, premium product is what
-makes it a good fit for analysis: with one signature drink, I can cleanly isolate
-how the cost of matcha and the strength of the brand drive its price, instead of
-getting lost across a huge menu.
+Stagger Coffee isn't really a general neighborhood café — it's more of a matcha
+specialist. Its whole identity is built around one product, the ceremonial-grade
+Double Matcha Latte (they whisk matcha into both the milk and the cream on top),
+and that's the drink that made it blow up online. I like that for analysis:
+because there's basically one signature product carrying the whole brand, I think
+I can actually isolate how much of the price comes from the cost of the matcha
+itself versus the hype around the name, instead of getting lost in a huge menu.
 
 ---
 
 ## 3. Focus Question
 
-> **Japan's ceremonial-grade matcha is in a real global shortage — wholesale
-> prices roughly doubled in 2025 as demand outran supply. So how much pricing
-> power does a viral, matcha-dependent shop like Stagger actually have: can it
-> keep passing rising matcha costs through to customers in its Double Matcha
-> Latte, or will price-sensitive fans trade down to its cheaper coffee drinks or
-> switch to a competitor like Matsu Matcha?**
+> **How much pricing power does Stagger actually have?**
 
-Why it's a good microeconomics question: it's specific, it's answerable from
-public prices, and it runs straight through core micro ideas — an **input supply
-shock**, **cost pass-through**, **price elasticity of demand**, **substitutes**,
-and **brand / product differentiation as pricing power**. It also sets up the rest
-of the project: I can track Stagger's posted matcha prices over the term, compare
-them against Matsu Matcha and against Stagger's own coffee menu, and end with a
-recommendation about how much room it really has to raise prices.
+Japan's ceremonial-grade matcha has been in a real shortage — I've read that
+wholesale prices roughly doubled in 2025 as demand blew past supply. So if
+Stagger's main ingredient keeps getting more expensive, can it just keep raising
+the price of the Double Matcha Latte and have people pay it?
+
+Or do its customers eventually hit a wall and trade down to its cheaper coffee
+drinks, or walk over to a competitor like Matsu Matcha instead?
+
+I like this question because it's specific, I can actually answer it from public
+prices, and it runs right through a bunch of the micro stuff we're covering — a
+supply shock on an input, how much of a cost increase gets passed through to
+customers, price elasticity, substitutes, and the idea of a brand giving you
+pricing power. It also gives me something to track for the rest of the project: I
+can watch Stagger's posted matcha prices over the term, compare them to Matsu
+Matcha and to Stagger's own regular coffee, and end with a take on how much room
+they really have to keep raising prices.
 
 ---
 
 ## Sources
 
-- Stagger Coffee — official site: <https://staggercoffee.com> · Yelp (3069 W 8th St): <https://www.yelp.com/biz/stagger-coffee-los-angeles> · Visit Koreatown: <https://visitkoreatown.org/stagger-coffee/>
-- Matsu Matcha — Yelp (547 S Western Ave): <https://www.yelp.com/biz/matsu-matcha-los-angeles> · Visit Koreatown: <https://visitkoreatown.org/matsu-matcha/>
-- Document Coffee Bar — Yelp (3850 Wilshire Blvd): <https://www.yelp.com/biz/document-coffee-bar-los-angeles-3> · Visit Koreatown: <https://visitkoreatown.org/document-coffee-bar/>
-- Matcha shortage & 2025 price surge — Perfect Daily Grind, "There's a matcha shortage in Japan" (Sept 2025): <https://perfectdailygrind.com/2025/09/matcha-shortage-japan-production/>
+- Stagger Coffee — <https://staggercoffee.com> · Yelp: <https://www.yelp.com/biz/stagger-coffee-los-angeles> · Visit Koreatown: <https://visitkoreatown.org/stagger-coffee/>
+- Matsu Matcha — Yelp: <https://www.yelp.com/biz/matsu-matcha-los-angeles> · Visit Koreatown: <https://visitkoreatown.org/matsu-matcha/>
+- Document Coffee Bar — Yelp: <https://www.yelp.com/biz/document-coffee-bar-los-angeles-3> · Visit Koreatown: <https://visitkoreatown.org/document-coffee-bar/>
+- Matcha shortage & 2025 price surge — Perfect Daily Grind (Sept 2025): <https://perfectdailygrind.com/2025/09/matcha-shortage-japan-production/>
